@@ -1,0 +1,6 @@
+Place your music file here and keep this name:
+
+music.mp3
+
+The play button uses this file when it is present. It does not start by itself.
+MP3 is the right format. A calm instrumental of a few minutes is enough, because the track loops.

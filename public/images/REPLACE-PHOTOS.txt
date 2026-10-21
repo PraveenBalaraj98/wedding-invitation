@@ -1,0 +1,21 @@
+Replace these empty frames with your own pre-wedding photographs.
+Keep the filenames, or update the paths in src/data/weddingConfig.ts.
+
+public/images/ganesha.png           Lord Ganesha at the top of the invitation. PNG with a transparent background works best, about 800 pixels wide.
+
+public/images/01-hero.jpg          Large photograph in Our Story
+public/images/02-portrait.jpg      Second Our Story photograph
+public/images/03-together.jpg      Third Our Story photograph
+public/images/04-candid.jpg        Fourth Our Story photograph
+public/images/05-details.jpg       Fifth Our Story photograph
+public/images/06-celebration.jpg   Sixth Our Story photograph
+
+public/images/event-chennai.jpg    Photograph at the top of the Chennai reception card
+public/images/event-wedding.jpg    Photograph at the top of the wedding ceremony card
+public/images/event-bengaluru.jpg  Photograph at the top of the Bengaluru reception card
+
+Use JPG or change the extension in weddingConfig.ts if you prefer WebP.
+A width around 1600 pixels for 01-hero.jpg and 1200 pixels for the others is enough.
+Write a short alt description, and a caption if you want one, in photographs inside weddingConfig.ts.
+
+These frames are not photographs of the couple. Do not leave stock pictures of other people in their place.

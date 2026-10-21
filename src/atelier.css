@@ -1,0 +1,187 @@
+/* Premium paper, depth, and motion layered on the existing invitation. */
+
+body {
+  background-color: var(--ivory);
+  background-image:
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(214, 181, 116, 0.28), transparent 60%),
+    radial-gradient(ellipse 50% 30% at 100% 20%, rgba(243, 221, 226, 0.7), transparent 55%),
+    radial-gradient(ellipse 40% 28% at 0% 80%, rgba(167, 181, 154, 0.22), transparent 50%),
+    linear-gradient(180deg, #fff8f0, #f7efe6 40%, #fff8f0);
+}
+
+.site-header {
+  background: rgba(255, 248, 240, 0.88);
+  border-bottom: 1px solid rgba(214, 181, 116, 0.45);
+  box-shadow: 0 10px 30px rgba(48, 42, 43, 0.04);
+}
+
+.section h2::after {
+  content: "";
+  display: block;
+  width: min(7rem, 40%);
+  height: 1px;
+  margin: 0.75rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold-bright), var(--rose), var(--gold-bright), transparent);
+}
+
+.opening-screen {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(214, 181, 116, 0.4), transparent 48%),
+    radial-gradient(ellipse at 90% 100%, rgba(243, 221, 226, 0.55), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(214, 181, 116, 0.045) 0 1px, transparent 1px 5px),
+    #fff8f0;
+}
+
+.invitation-frame {
+  transform: translateZ(0);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.7), transparent 28%),
+    linear-gradient(180deg, #fffdf9, #fff4e8);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    var(--shadow-soft),
+    var(--shadow-gold);
+}
+.invitation-frame::before { border-color: var(--gold-bright); }
+.invitation-frame::after { border-color: rgba(100, 45, 67, 0.72); }
+
+.date-card,
+.event-wedding,
+.share-card,
+.scroll-sheet {
+  box-shadow: var(--shadow-soft), var(--shadow-gold);
+}
+
+.event-card {
+  position: relative;
+  border: 1px solid rgba(214, 181, 116, 0.35);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+}
+.event-chennai {
+  border-color: transparent;
+  box-shadow: var(--shadow-elevated);
+}
+
+@media (hover: hover) and (min-width: 900px) {
+  .event-stage {
+    perspective: 1200px;
+  }
+  .event-card:hover {
+    transform: translateY(-6px) rotateX(2deg);
+    box-shadow: var(--shadow-elevated), var(--shadow-gold);
+  }
+}
+
+.share-card {
+  margin-top: 1.4rem;
+  padding: 1.35rem 1.1rem 1.2rem;
+  border-radius: 1.4rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 30%),
+    var(--paper);
+  border: 1px solid rgba(214, 181, 116, 0.55);
+  box-shadow: var(--shadow-soft), var(--shadow-gold);
+}
+.share-card .action-grid { margin-top: 0; }
+.share-card .status { margin-top: 0.85rem; }
+
+.photo-frame {
+  box-shadow: none;
+}
+
+.btn {
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.16s var(--ease-out), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.btn-primary { box-shadow: 0 8px 18px rgba(100, 45, 67, 0.18); }
+.btn-primary:hover { box-shadow: 0 12px 24px rgba(100, 45, 67, 0.22); }
+.btn-gold {
+  background: linear-gradient(180deg, #ead7a8, var(--gold-bright));
+  color: var(--ink);
+  box-shadow: var(--shadow-gold);
+}
+.btn-gold:hover { background: linear-gradient(180deg, #f3e4be, #c9a45e); }
+.btn-ghost { border-color: rgba(100, 45, 67, 0.28); }
+.btn-ghost:hover { background: rgba(243, 221, 226, 0.45); }
+
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  right: 0.35rem;
+  bottom: 0.2rem;
+  height: 1px;
+  background: var(--gold-bright);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+.nav-link:hover::after,
+.nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.garden {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+.garden-butterfly {
+  position: absolute;
+  width: 46px;
+  height: 32px;
+  opacity: 0;
+  perspective: 180px;
+  animation: garden-pass 26s var(--ease-out) infinite;
+}
+.garden-butterfly svg { width: 100%; height: 100%; overflow: visible; }
+.garden-butterfly .wing {
+  transform-box: fill-box;
+  transform-origin: center right;
+  animation: garden-flap 0.7s ease-in-out infinite;
+}
+.garden-butterfly .wing.right {
+  transform-origin: center left;
+}
+.garden-butterfly.b1 { top: 18%; left: -8%; animation-delay: 1.2s; }
+.garden-butterfly.b2 { top: 62%; right: -10%; left: auto; animation-delay: 8s; animation-duration: 30s; }
+.garden-butterfly.b3 { top: 38%; left: -12%; width: 34px; animation-delay: 16s; animation-duration: 24s; }
+
+@keyframes garden-flap {
+  0%, 100% { transform: rotateY(62deg); }
+  50% { transform: rotateY(8deg); }
+}
+@keyframes garden-pass {
+  0% { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.85); }
+  8% { opacity: 0.85; }
+  42% { opacity: 0.75; transform: translate3d(28vw, -18px, 0) scale(1); }
+  52%, 100% { opacity: 0; transform: translate3d(46vw, 8px, 0) scale(0.9); }
+}
+.garden-butterfly.b2 { animation-name: garden-pass-left; }
+@keyframes garden-pass-left {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.8); }
+  10% { opacity: 0.7; }
+  40% { opacity: 0.65; transform: translate3d(-32vw, 16px, 0) scale(1.05); }
+  52%, 100% { opacity: 0; transform: translate3d(-52vw, -6px, 0) scale(0.85); }
+}
+
+@media (max-width: 720px) {
+  .garden-butterfly { width: 32px; }
+  .garden-butterfly.b3 { display: none; }
+  .garden-butterfly.b1 { top: 14%; }
+  .garden-butterfly.b2 { top: 78%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden { display: none; }
+  .section h2::after { animation: none; }
+  .event-card,
+  .btn,
+  .nav-link::after { transition: none; }
+  .event-card:hover { transform: none; }
+}
