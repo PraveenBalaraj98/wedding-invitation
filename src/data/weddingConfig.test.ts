@@ -7,12 +7,14 @@ import {
   BRIDE_PARENTS,
   CHENNAI_ADDRESS,
   CHENNAI_MAPS_URL,
+  CHENNAI_VENUE,
   GROOM,
   GROOM_PARENTS,
   MAPS_URL,
   addressForDisplay,
   coupleByLocale,
   events,
+  getCopy,
   invitationPlain,
   photographs,
   venueForDisplay,
@@ -63,17 +65,30 @@ describe("venues", () => {
     )
     expect(bengaluru?.mapsUrl).toBe(MAPS_URL)
     expect(bengaluru?.mapsUrl).toBe("https://maps.app.goo.gl/WYPcB7q9DJuc2n3r9")
-    expect(chennai?.venueName).toBeNull()
+    expect(chennai?.venueName).toBe(CHENNAI_VENUE)
     expect(chennai?.address).toBe(CHENNAI_ADDRESS)
     expect(chennai?.mapsUrl).toBe(CHENNAI_MAPS_URL)
-    expect(chennai?.end).toBeNull()
-    expect(wedding?.venueName).toBeNull()
+    expect(chennai?.end).toBe("22:00")
+    expect(chennai?.timeLabel).toEqual({
+      en: "6:00 PM–10:00 PM",
+      kn: "ಸಂಜೆ 6:00–ರಾತ್ರಿ 10:00",
+      ta: "மாலை 6:00–இரவு 10:00",
+    })
+    expect(wedding?.venueName).toBe(CHENNAI_VENUE)
     expect(wedding?.address).toBe(CHENNAI_ADDRESS)
     expect(wedding?.mapsUrl).toBe(CHENNAI_MAPS_URL)
     expect(AWAITING_VENUE).toBe("Awaiting confirmed venue details.")
   })
 
   it("shows the Bengaluru venue and address in Kannada and Tamil", () => {
+    expect(venueForDisplay(CHENNAI_VENUE, "en")).toBe(CHENNAI_VENUE)
+    expect(venueForDisplay(CHENNAI_VENUE, "kn")).toBe("ಸೌಂದ್ರಪಾಂಡಿಯ ಕಲ್ಯಾಣ ಮಂಟಪ")
+    expect(venueForDisplay(CHENNAI_VENUE, "ta")).toBe("சௌந்திரபாண்டிய கல்யாண மண்டபம்")
+    expect(getCopy("ta").eventKickers["bengaluru-reception"]).toBe("கறி விருந்து")
+    expect(getCopy("ta").eventTitles["bengaluru-reception"]).toContain("கறி விருந்து")
+    expect(getCopy("ta").eventTitles["bengaluru-reception"]).not.toContain("பீகர")
+    expect(getCopy("kn").dateNote).toBe("ನಮ್ಮ ಜೊತೆಗಿನ ಜೀವನಕ್ಕೆ ಇದೊಂದು ಸುಂದರ ಆರಂಭ.")
+    expect(getCopy("ta").dateNote).toBe("எங்கள் இணைந்த வாழ்க்கைக்கு இது ஓர் அழகிய தொடக்கம்.")
     expect(venueForDisplay(BENGALURU_VENUE, "en")).toBe("Asthitva Teak Meadows")
     expect(venueForDisplay(BENGALURU_VENUE, "kn")).toBe("ಅಸ್ಥಿತ್ವ ಟೀಕ್ ಮೆಡೋಸ್")
     expect(venueForDisplay(BENGALURU_VENUE, "ta")).toBe("அஸ்தித்வா டீக் மெடோஸ்")

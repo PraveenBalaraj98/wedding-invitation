@@ -11,12 +11,22 @@
 
 export const TIMEZONE = "Asia/Kolkata"
 
+/**
+ * The address guests should open from WhatsApp. No public site URL is
+ * configured yet. Set this to the deployed https address, or set
+ * VITE_PUBLIC_INVITATION_URL when building. A private address such as
+ * localhost or 192.168.x.x is never placed in the message.
+ */
+export const publicInvitationUrl: string | null = "https://wedding-invitation-red-rho.vercel.app/"
+
 export const MAPS_URL = "https://maps.app.goo.gl/WYPcB7q9DJuc2n3r9"
 
 export const BENGALURU_VENUE = "Asthitva Teak Meadows"
 
 export const BENGALURU_ADDRESS =
   "63/1, Kachohalli Main Rd, opp. to HP petrol bunk, Kempegowdanagar, Byadarahalli, Bengaluru, Karnataka 562162"
+
+export const CHENNAI_VENUE = "Soundrapandian Kalyana Mandapam"
 
 export const CHENNAI_ADDRESS =
   "356, 1C, Kundrathur Main Rd, Madhanandapuram, Chennai, Tamil Nadu 600125"
@@ -65,6 +75,9 @@ const CHENNAI_ADDRESS_TA =
 const BENGALURU_VENUE_KN = "ಅಸ್ಥಿತ್ವ ಟೀಕ್ ಮೆಡೋಸ್"
 const BENGALURU_VENUE_TA = "அஸ்தித்வா டீக் மெடோஸ்"
 
+const CHENNAI_VENUE_KN = "ಸೌಂದ್ರಪಾಂಡಿಯ ಕಲ್ಯಾಣ ಮಂಟಪ"
+const CHENNAI_VENUE_TA = "சௌந்திரபாண்டிய கல்யாண மண்டபம்"
+
 const BENGALURU_ADDRESS_KN =
   "63/1, ಕಾಚೋಹಳ್ಳಿ ಮುಖ್ಯ ರಸ್ತೆ, ಎಚ್.ಪಿ. ಪೆಟ್ರೋಲ್ ಬಂಕ್ ಎದುರು, ಕೆಂಪೇಗೌಡನಗರ, ಬ್ಯಾಡರಹಳ್ಳಿ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 562162"
 const BENGALURU_ADDRESS_TA =
@@ -78,6 +91,8 @@ export function namesFor(locale: Locale) {
 export function venueForDisplay(venueName: string | null, locale: Locale): string | null {
   if (venueName === BENGALURU_VENUE && locale === "kn") return BENGALURU_VENUE_KN
   if (venueName === BENGALURU_VENUE && locale === "ta") return BENGALURU_VENUE_TA
+  if (venueName === CHENNAI_VENUE && locale === "kn") return CHENNAI_VENUE_KN
+  if (venueName === CHENNAI_VENUE && locale === "ta") return CHENNAI_VENUE_TA
   return venueName
 }
 
@@ -144,18 +159,18 @@ export const events: WeddingEvent[] = [
     id: "chennai-reception",
     date: "2026-11-10",
     start: "18:00",
-    end: null,
+    end: "22:00",
     dateLabel: {
       en: "Tuesday, 10 November 2026",
       kn: "ಮಂಗಳವಾರ, 10 ನವೆಂಬರ್ 2026",
       ta: "செவ்வாய்க்கிழமை, 10 நவம்பர் 2026",
     },
     timeLabel: {
-      en: "From 6:00 PM",
-      kn: "ಸಂಜೆ 6:00 ರಿಂದ",
-      ta: "மாலை 6:00 முதல்",
+      en: "6:00 PM–10:00 PM",
+      kn: "ಸಂಜೆ 6:00–ರಾತ್ರಿ 10:00",
+      ta: "மாலை 6:00–இரவு 10:00",
     },
-    venueName: null,
+    venueName: CHENNAI_VENUE,
     address: CHENNAI_ADDRESS,
     mapsUrl: CHENNAI_MAPS_URL,
     schedule: [
@@ -191,7 +206,7 @@ export const events: WeddingEvent[] = [
       kn: "ಬೆಳಗ್ಗೆ 6:00–7:30",
       ta: "காலை 6:00–7:30",
     },
-    venueName: null,
+    venueName: CHENNAI_VENUE,
     address: CHENNAI_ADDRESS,
     mapsUrl: CHENNAI_MAPS_URL,
     schedule: [],
@@ -308,6 +323,7 @@ const en = {
   closeMenu: "Close menu",
   languageLabel: "Language",
   skipToContent: "Skip to invitation",
+  scrollHint: "Scroll to explore",
   invitation: [
     line("lead", "With the blessings of the Almighty and our beloved families,"),
     line("invite", "we joyfully invite you and your family to grace the wedding of"),
@@ -372,7 +388,7 @@ const en = {
   venueIntro:
     "Directions are ready for the Bengaluru reception. The Chennai reception and the wedding ceremony will be added here once their venues are confirmed.",
   contactHeading: "Share the invitation",
-  contactIntro: "Send this page to family and friends. The message includes the celebrations and this website link.",
+  contactIntro: "Send this page to family and friends. The message is a short invitation with this website link.",
   whatsapp: "Share on WhatsApp",
   copyLink: "Copy Website Link",
   linkCopied: "Website link copied.",
@@ -382,6 +398,7 @@ const en = {
   playMusic: "Play music",
   pauseMusic: "Pause music",
   musicUnavailable: "Music could not start in this browser. You can try again.",
+  musicLoading: "Starting music",
   cordiallyInvited: "You're cordially invited",
   weddingHeading: "Wedding Invitation",
   saveTheDate: "Save the Date",
@@ -391,6 +408,7 @@ const en = {
   scrollTitle: "The celebrations",
   viewOnMap: "View on Map",
   addToCalendar: "Add to Calendar",
+  calendarOnDevice: "Add to your calendar",
   shareEvent: "Share Event",
   prevEvent: "Previous Event",
   nextEvent: "Next Event",
@@ -398,7 +416,12 @@ const en = {
   backToTop: "Back to Top",
   footerNote: "With best compliments from Relatives and Friends.",
   footerClosing: "With love and gratitude.",
-  shareLead: `You are cordially invited to the wedding of ${BRIDE} and ${GROOM}.`,
+  shareJoy: (bride: string, groom: string) =>
+    `With immense joy, we invite you to celebrate the wedding of ${bride} and ${groom}! ❤️`,
+  shareBlessing: "Your presence and blessings would mean the world to us.",
+  shareJoin:
+    "Join us for our wedding celebrations and find all the event details, venue information, and directions in our invitation.",
+  shareSignoff: (bride: string, groom: string) => `With love,\n${bride} & ${groom}`,
   invitationWord: "Invitation",
   preparingQr: "Preparing the directions code",
   qrError: "The directions code could not be drawn. Open the maps link instead.",
@@ -432,6 +455,7 @@ const kn: typeof en = {
   closeMenu: "ಮೆನು ಮುಚ್ಚಿರಿ",
   languageLabel: "ಭಾಷೆ",
   skipToContent: "ಆಮಂತ್ರಣಕ್ಕೆ ಹೋಗಿ",
+  scrollHint: "ಇನ್ನಷ್ಟು ನೋಡಲು ಕೆಳಗೆ ಸರಿಸಿ",
   invitation: [
     line("lead", "ಪರಮಾತ್ಮನ ಹಾಗೂ ನಮ್ಮ ಪ್ರೀತಿಯ ಕುಟುಂಬಗಳ ಆಶೀರ್ವಾದದೊಂದಿಗೆ,"),
     line("invite", "ತಾವು ಹಾಗೂ ತಮ್ಮ ಕುಟುಂಬದವರನ್ನು ಈ ಮಂಗಳಕರ ವಿವಾಹಕ್ಕೆ ಸಂತೋಷದಿಂದ ಆಹ್ವಾನಿಸುತ್ತೇವೆ"),
@@ -496,7 +520,7 @@ const kn: typeof en = {
   venueIntro:
     "ಬೆಂಗಳೂರು ಸ್ವಾಗತದ ದಾರಿ ಸಿದ್ಧವಾಗಿದೆ. ಚೆನ್ನೈ ಸ್ವಾಗತ ಮತ್ತು ವಿವಾಹದ ಸ್ಥಳ ಖಚಿತವಾದ ನಂತರ ಇಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು.",
   contactHeading: "ಆಮಂತ್ರಣ ಹಂಚಿಕೊಳ್ಳಿ",
-  contactIntro: "ಈ ಪುಟವನ್ನು ಬಂಧುಗಳು ಮತ್ತು ಸ್ನೇಹಿತರಿಗೆ ಕಳುಹಿಸಿ. ಸಂದೇಶದಲ್ಲಿ ಕಾರ್ಯಕ್ರಮಗಳು ಮತ್ತು ಈ ಜಾಲತಾಣದ ಕೊಂಡಿ ಇರುತ್ತವೆ.",
+  contactIntro: "ಈ ಪುಟವನ್ನು ಬಂಧುಗಳು ಮತ್ತು ಸ್ನೇಹಿತರಿಗೆ ಕಳುಹಿಸಿ. ಸಂದೇಶದಲ್ಲಿ ಒಂದು ಚಿಕ್ಕ ಆಮಂತ್ರಣ ಮತ್ತು ಈ ಜಾಲತಾಣದ ಕೊಂಡಿ ಇರುತ್ತವೆ.",
   whatsapp: "ವಾಟ್ಸ್‌ಆ್ಯಪ್‌ನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ",
   copyLink: "ಜಾಲತಾಣದ ಕೊಂಡಿ ನಕಲಿಸಿ",
   linkCopied: "ಜಾಲತಾಣದ ಕೊಂಡಿ ನಕಲಿಸಲಾಗಿದೆ.",
@@ -506,15 +530,17 @@ const kn: typeof en = {
   playMusic: "ಸಂಗೀತ ನುಡಿಸಿ",
   pauseMusic: "ಸಂಗೀತ ನಿಲ್ಲಿಸಿ",
   musicUnavailable: "ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಸಂಗೀತ ಪ್ರಾರಂಭವಾಗಲಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+  musicLoading: "ಸಂಗೀತ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ",
   cordiallyInvited: "ನಿಮ್ಮನ್ನು ಆದರಪೂರ್ವಕವಾಗಿ ಆಹ್ವಾನಿಸಲಾಗಿದೆ",
   weddingHeading: "ವಿವಾಹ ಆಮಂತ್ರಣ",
   saveTheDate: "ದಿನಾಂಕ ಉಳಿಸಿಕೊಳ್ಳಿ",
-  dateNote: "ಪುಷ್ಪಲತಾ ಮತ್ತು ಗೋಕುಲ್ ತಮ್ಮ ಹೊಸ ಜೀವನವನ್ನು ಆರಂಭಿಸುವ ಮುಂಜಾನೆ.",
+  dateNote: "ನಮ್ಮ ಜೊತೆಗಿನ ಜೀವನಕ್ಕೆ ಇದೊಂದು ಸುಂದರ ಆರಂಭ.",
   cityBengaluru: "ಬೆಂಗಳೂರು",
   ourStory: "ನಮ್ಮ ಕಥೆ",
   scrollTitle: "ಸಂಭ್ರಮಗಳು",
   viewOnMap: "ನಕ್ಷೆಯಲ್ಲಿ ನೋಡಿ",
   addToCalendar: "ಕ್ಯಾಲೆಂಡರ್‌ಗೆ ಸೇರಿಸಿ",
+  calendarOnDevice: "ನಿಮ್ಮ ಕ್ಯಾಲೆಂಡರ್‌ಗೆ ಸೇರಿಸಿ",
   shareEvent: "ಕಾರ್ಯಕ್ರಮ ಹಂಚಿಕೊಳ್ಳಿ",
   prevEvent: "ಹಿಂದಿನ ಕಾರ್ಯಕ್ರಮ",
   nextEvent: "ಮುಂದಿನ ಕಾರ್ಯಕ್ರಮ",
@@ -522,7 +548,11 @@ const kn: typeof en = {
   backToTop: "ಮೇಲಕ್ಕೆ",
   footerNote: "ಬಂಧುಗಳು ಮತ್ತು ಸ್ನೇಹಿತರ ವಂದನೆಗಳು.",
   footerClosing: "ಪ್ರೀತಿ ಮತ್ತು ಕೃತಜ್ಞತೆಯೊಂದಿಗೆ.",
-  shareLead: `${coupleByLocale.kn.bride} ಮತ್ತು ${coupleByLocale.kn.groom} ಅವರ ವಿವಾಹಕ್ಕೆ ನಿಮ್ಮನ್ನು ಪ್ರೀತಿಯಿಂದ ಆಹ್ವಾನಿಸಲಾಗಿದೆ.`,
+  shareJoy: (bride: string, groom: string) =>
+    `${bride} ಮತ್ತು ${groom} ಅವರ ವಿವಾಹವನ್ನು ಸಂಭ್ರಮಿಸಲು ನಿಮ್ಮನ್ನು ಮನಃಪೂರ್ವಕವಾಗಿ ಆಹ್ವಾನಿಸುತ್ತೇವೆ! ❤️`,
+  shareBlessing: "ನಿಮ್ಮ ಆಗಮನ ಮತ್ತು ಆಶೀರ್ವಾದ ನಮಗೆ ಅತ್ಯಂತ ಅಮೂಲ್ಯ.",
+  shareJoin: "ನಮ್ಮ ವಿವಾಹ ಸಂಭ್ರಮಗಳಿಗೆ ಬನ್ನಿ. ಕಾರ್ಯಕ್ರಮ, ಸ್ಥಳ ಮತ್ತು ದಾರಿಯ ವಿವರಗಳೆಲ್ಲ ಈ ಆಮಂತ್ರಣದಲ್ಲಿವೆ.",
+  shareSignoff: (bride: string, groom: string) => `ಪ್ರೀತಿಯಿಂದ,\n${bride} ಮತ್ತು ${groom}`,
   invitationWord: "ಆಮಂತ್ರಣ",
   preparingQr: "ದಾರಿಯ ಸಂಕೇತ ಸಿದ್ಧವಾಗುತ್ತಿದೆ",
   qrError: "ದಾರಿಯ ಸಂಕೇತ ರಚಿಸಲು ಆಗಲಿಲ್ಲ. ನಕ್ಷೆಯ ಕೊಂಡಿಯನ್ನು ತೆರೆಯಿರಿ.",
@@ -556,6 +586,7 @@ const ta: typeof en = {
   closeMenu: "பட்டியலை மூடு",
   languageLabel: "மொழி",
   skipToContent: "அழைப்பிதழுக்குச் செல்",
+  scrollHint: "மேலும் காண கீழே செல்லுங்கள்",
   invitation: [
     line("lead", "இறைவன் மற்றும் எங்கள் அன்புக் குடும்பங்களின் ஆசியுடன்,"),
     line("invite", "தங்களையும் தங்கள் குடும்பத்தினரையும் இந்த மங்களகரமான திருமணத்திற்கு மகிழ்ச்சியுடன் அழைக்கிறோம்"),
@@ -581,12 +612,12 @@ const ta: typeof en = {
   eventTitles: {
     "chennai-reception": "சென்னை வரவேற்பு",
     "wedding-ceremony": "திருமண விழா",
-    "bengaluru-reception": "பெங்களூர் வரவேற்பு / பீகர ஊட்ட",
+    "bengaluru-reception": "பெங்களூர் வரவேற்பு / கறி விருந்து",
   },
   eventKickers: {
     "chennai-reception": "வரவேற்பு",
     "wedding-ceremony": "முகூர்த்தம்",
-    "bengaluru-reception": "பீகர ஊட்ட",
+    "bengaluru-reception": "கறி விருந்து",
   },
   dateLabel: "நாள்",
   timeLabel: "நேரம்",
@@ -620,7 +651,7 @@ const ta: typeof en = {
   venueIntro:
     "பெங்களூர் வரவேற்புக்கான வழி தயாராக உள்ளது. சென்னை வரவேற்பு மற்றும் திருமண இடம் உறுதியானதும் இங்கே சேர்க்கப்படும்.",
   contactHeading: "அழைப்பிதழைப் பகிர",
-  contactIntro: "இந்தப் பக்கத்தை உறவினர்களுக்கும் நண்பர்களுக்கும் அனுப்புங்கள். செய்தியில் விழாக்களும் இந்த இணையதள இணைப்பும் இருக்கும்.",
+  contactIntro: "இந்தப் பக்கத்தை உறவினர்களுக்கும் நண்பர்களுக்கும் அனுப்புங்கள். செய்தியில் ஒரு சிறிய அழைப்பும் இந்த இணையதள இணைப்பும் இருக்கும்.",
   whatsapp: "வாட்ஸ்அப்பில் பகிர்",
   copyLink: "இணையதள இணைப்பை நகலெடு",
   linkCopied: "இணையதள இணைப்பு நகலெடுக்கப்பட்டது.",
@@ -630,15 +661,17 @@ const ta: typeof en = {
   playMusic: "இசையை இயக்கு",
   pauseMusic: "இசையை நிறுத்து",
   musicUnavailable: "இந்த உலாவியில் இசையைத் தொடங்க முடியவில்லை. மீண்டும் முயலவும்.",
+  musicLoading: "இசை தொடங்குகிறது",
   cordiallyInvited: "தங்களை அன்புடன் அழைக்கிறோம்",
   weddingHeading: "திருமண அழைப்பிதழ்",
   saveTheDate: "தேதியைச் சேமிக்க",
-  dateNote: "புஷ்பலதாவும் கோகுலும் தங்கள் புதிய வாழ்க்கையைத் தொடங்கும் காலை.",
+  dateNote: "எங்கள் இணைந்த வாழ்க்கைக்கு இது ஓர் அழகிய தொடக்கம்.",
   cityBengaluru: "பெங்களூர்",
   ourStory: "எங்கள் கதை",
   scrollTitle: "விழாக்கள்",
   viewOnMap: "வரைபடத்தில் காண",
   addToCalendar: "நாள்காட்டியில் சேர்",
+  calendarOnDevice: "உங்கள் நாள்காட்டியில் சேர்க்க",
   shareEvent: "நிகழ்வைப் பகிர்",
   prevEvent: "முந்தைய நிகழ்வு",
   nextEvent: "அடுத்த நிகழ்வு",
@@ -646,7 +679,12 @@ const ta: typeof en = {
   backToTop: "மேலே",
   footerNote: "உறவினர்களும் நண்பர்களும் அன்புடன்.",
   footerClosing: "அன்புடனும் நன்றியுடனும்.",
-  shareLead: `${coupleByLocale.ta.bride} மற்றும் ${coupleByLocale.ta.groom} அவர்களின் திருமணத்திற்கு அன்புடன் அழைக்கிறோம்.`,
+  shareJoy: (bride: string, groom: string) =>
+    `${bride} மற்றும் ${groom} அவர்களின் திருமணத்தைக் கொண்டாட உங்களை மகிழ்ச்சியுடன் அழைக்கிறோம்! ❤️`,
+  shareBlessing: "தங்கள் வருகையும் ஆசியும் எங்களுக்கு மிகவும் அர்த்தமுள்ளவை.",
+  shareJoin:
+    "எங்கள் திருமண விழாக்களில் கலந்துகொள்ளுங்கள். நிகழ்வு விவரங்கள், இடம் மற்றும் வழிகாட்டல் அனைத்தும் இந்த அழைப்பிதழில் உள்ளன.",
+  shareSignoff: (bride: string, groom: string) => `அன்புடன்,\n${bride} & ${groom}`,
   invitationWord: "அழைப்பிதழ்",
   preparingQr: "வழிக் குறியீடு தயாராகிறது",
   qrError: "வழிக் குறியீட்டை வரைய முடியவில்லை. வரைபட இணைப்பைத் திறக்கவும்.",

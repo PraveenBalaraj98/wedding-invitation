@@ -1,3 +1,13 @@
+Invitation corner decorations. These four files are temporary gold-and-magenta
+placeholders, not the final artwork. Replace each file with your own PNG,
+keeping the filename. Transparent backgrounds work best. About 512 pixels square
+is enough; the site scales them and does not stretch them.
+
+public/images/invitation-frame-top-left.png
+public/images/invitation-frame-top-right.png
+public/images/invitation-frame-bottom-left.png
+public/images/invitation-frame-bottom-right.png
+
 Replace these empty frames with your own pre-wedding photographs.
 Keep the filenames, or update the paths in src/data/weddingConfig.ts.
 

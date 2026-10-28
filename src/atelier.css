@@ -42,9 +42,6 @@ body {
     var(--shadow-soft),
     var(--shadow-gold);
 }
-.invitation-frame::before { border-color: var(--gold-bright); }
-.invitation-frame::after { border-color: rgba(100, 45, 67, 0.72); }
-
 .date-card,
 .event-wedding,
 .share-card,
@@ -68,7 +65,6 @@ body {
     perspective: 1200px;
   }
   .event-card:hover {
-    transform: translateY(-6px) rotateX(2deg);
     box-shadow: var(--shadow-elevated), var(--shadow-gold);
   }
 }

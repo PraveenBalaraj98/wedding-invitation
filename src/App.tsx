@@ -10,6 +10,7 @@ import { Contact } from "./sections/Contact.tsx"
 import { Events } from "./sections/Events.tsx"
 import { Footer } from "./sections/Footer.tsx"
 import { Gallery } from "./sections/Gallery.tsx"
+import { ScrollHint } from "./components/ScrollHint.tsx"
 import { Invitation } from "./sections/Invitation.tsx"
 import { SaveTheDate } from "./sections/SaveTheDate.tsx"
 
@@ -54,6 +55,7 @@ function Site() {
         <Petals />
         <GardenButterflies />
         <Navigation />
+        <ScrollHint active={entered} />
         <main>
           <Invitation />
           <SaveTheDate />

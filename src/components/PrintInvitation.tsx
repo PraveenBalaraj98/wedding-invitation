@@ -19,17 +19,14 @@ function PrintEvent({ event }: { event: WeddingEvent }) {
       <p>
         {t.dateLabel}: {event.dateLabel[locale]}
       </p>
-      {event.schedule.length > 0 ? (
-        event.schedule.map((item) => (
-          <p key={item.time}>
-            {item.label[locale]}: {item.clock[locale]}
-          </p>
-        ))
-      ) : (
-        <p>
-          {t.timeLabel}: {event.timeLabel[locale]}
+      <p>
+        {t.timeLabel}: {event.timeLabel[locale]}
+      </p>
+      {event.schedule.map((item) => (
+        <p key={item.time}>
+          {item.label[locale]}: {item.clock[locale]}
         </p>
-      )}
+      ))}
       <p>
         {t.venueLabel}: {event.address ? `${venueForDisplay(event.venueName, locale) ?? ""} ${addressForDisplay(event.address, locale)}`.trim() : t.awaitingVenue}
       </p>

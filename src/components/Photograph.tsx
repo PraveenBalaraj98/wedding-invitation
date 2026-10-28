@@ -49,8 +49,10 @@ export function PhotoVisual({
     .filter(Boolean)
     .join(" ")
 
+  const reserve = !lightbox && variant ? { aspectRatio: `${variant.width} / ${variant.height}` } : undefined
+
   return (
-    <div className={frameClass}>
+    <div className={frameClass} style={reserve}>
       {state !== "missing" && (
         <picture>
           {webpSrcSet ? <source type="image/webp" srcSet={webpSrcSet} sizes={sizes} /> : null}
@@ -65,6 +67,9 @@ export function PhotoVisual({
             loading={priority || preload ? "eager" : "lazy"}
             fetchPriority={priority ? "high" : "low"}
             decoding="async"
+            ref={(img) => {
+              if (img?.complete && img.naturalWidth > 0) onLoad()
+            }}
             onLoad={onLoad}
             onError={onError}
           />

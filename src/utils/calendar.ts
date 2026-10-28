@@ -31,14 +31,12 @@ export function calendarTitle(event: WeddingEvent, locale: Locale): string {
 
 export function describeEvent(event: WeddingEvent, locale: Locale): string {
   const text = getCopy(locale)
-  const lines = [event.dateLabel[locale]]
+  const lines = [event.dateLabel[locale], event.timeLabel[locale]]
 
   if (event.schedule.length > 0) {
     for (const item of event.schedule) {
       lines.push(`${item.label[locale]}: ${item.clock[locale]}`)
     }
-  } else {
-    lines.push(event.timeLabel[locale])
   }
 
   if (!event.end) lines.push(text.endUnconfirmed)
@@ -147,6 +145,37 @@ export function buildEventIcs(event: WeddingEvent, locale: Locale, now: Date = n
 
   lines.push("END:VEVENT", "END:VCALENDAR")
   return `${lines.join("\r\n")}\r\n`
+}
+
+export type CalendarOffer = "shared" | "downloaded" | "cancelled" | "failed"
+
+/**
+ * Hands the guest one .ics file. Phones that can share files open the system
+ * share sheet, where a calendar app can import it. Other browsers download the
+ * same file. This never also opens Google Calendar.
+ */
+export async function offerCalendarFile(event: WeddingEvent, locale: Locale): Promise<CalendarOffer> {
+  const ics = buildEventIcs(event, locale)
+  const filename = `${event.id}.ics`
+  const file = new File([ics], filename, { type: "text/calendar" })
+
+  if (typeof navigator.share === "function" && typeof navigator.canShare === "function") {
+    try {
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: calendarTitle(event, locale) })
+        return "shared"
+      }
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return "cancelled"
+    }
+  }
+
+  try {
+    downloadTextFile(filename, ics, "text/calendar;charset=utf-8")
+    return "downloaded"
+  } catch {
+    return "failed"
+  }
 }
 
 export function downloadTextFile(filename: string, contents: string, mimeType: string): void {

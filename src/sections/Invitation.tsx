@@ -1,12 +1,39 @@
 import { useLocale } from "../context/LocaleContext.tsx"
 import { Reveal } from "../components/Reveal.tsx"
 import { Ganesha, InvitationFrame, Kolam, OfficialName, Peacock } from "../components/Ornaments.tsx"
+import type { InvitationLine } from "../data/weddingConfig.ts"
 
 export function Invitation() {
   const { t } = useLocale()
   const blessings = t.invitation.filter((line) => line.role === "blessing")
   const rest = t.invitation.filter((line) => line.role !== "blessing")
-  const firstName = rest.findIndex((line) => line.role === "name")
+  const before: InvitationLine[] = []
+  const people: { name: string; relation: string }[] = []
+  const after: InvitationLine[] = []
+  let withText = ""
+  let pendingName: string | null = null
+  let seenPeople = false
+
+  for (const line of rest) {
+    if (line.role === "name") {
+      pendingName = line.text
+      seenPeople = true
+      continue
+    }
+    if (line.role === "relation" && pendingName) {
+      people.push({ name: pendingName, relation: line.text })
+      pendingName = null
+      continue
+    }
+    if (line.role === "with") {
+      withText = line.text
+      continue
+    }
+    if (seenPeople) after.push(line)
+    else before.push(line)
+  }
+
+  const [bride, groom] = people
 
   return (
     <section id="invitation" className="section invitation-section">
@@ -20,28 +47,38 @@ export function Invitation() {
             </p>
           ))}
           <h1 className="wedding-heading">{t.weddingHeading}</h1>
-          {rest.map((line, index) => {
-            if (line.role === "name") {
-              return (
-                <div key={`${line.text}-${index}`}>
-                  {index === firstName && (
-                    <div className="name-row">
-                      <Peacock className="name-peacock" />
-                      <OfficialName name={line.text} />
-                      <Peacock flip className="name-peacock" />
-                    </div>
-                  )}
-                  {index !== firstName && <OfficialName name={line.text} />}
-                  {index === firstName && <div className="gold-shimmer" />}
+          {before.map((line, index) => (
+            <p key={`${line.role}-${index}`} className={`invite-${line.role}`}>
+              {line.text}
+            </p>
+          ))}
+          {bride && groom && (
+            <div className="couple-row">
+              <div className="couple-person couple-bride">
+                <div className="name-row">
+                  <Peacock className="name-peacock" />
+                  <OfficialName name={bride.name} />
+                  <Peacock flip className="name-peacock" />
                 </div>
-              )
-            }
-            return (
-              <p key={`${line.role}-${index}`} className={`invite-${line.role}`}>
-                {line.text}
-              </p>
-            )
-          })}
+                <p className="invite-relation">{bride.relation}</p>
+              </div>
+              {withText && <p className="invite-with couple-with">{withText}</p>}
+              <div className="couple-person couple-groom">
+                <div className="name-row">
+                  <Peacock className="name-peacock groom-peacock" />
+                  <OfficialName name={groom.name} />
+                  <Peacock flip className="name-peacock groom-peacock" />
+                </div>
+                <p className="invite-relation">{groom.relation}</p>
+              </div>
+            </div>
+          )}
+          <div className="gold-shimmer" />
+          {after.map((line, index) => (
+            <p key={`${line.role}-${index}`} className={`invite-${line.role}`}>
+              {line.text}
+            </p>
+          ))}
         </InvitationFrame>
       </Reveal>
     </section>

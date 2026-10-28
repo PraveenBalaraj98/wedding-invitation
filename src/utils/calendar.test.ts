@@ -31,6 +31,7 @@ describe("calendar exports", () => {
 
     expect(ics).toContain("DTSTART;TZID=Asia/Kolkata:20261111T060000")
     expect(ics).toContain("DTEND;TZID=Asia/Kolkata:20261111T073000")
+    expect(ics).toContain("Soundrapandia Kalyana Mandapam")
     expect(ics).toContain(CHENNAI_ADDRESS.replace(/,/g, "\\,"))
     expect(ics).toContain(CHENNAI_MAPS_URL)
     expect(ics).not.toContain(MAPS_URL)
@@ -39,23 +40,25 @@ describe("calendar exports", () => {
     expect(link).toContain("location=")
   })
 
-  it("keeps the Chennai start without assigning a closing time", () => {
+  it("keeps the Chennai reception from 6:00 PM to 10:00 PM IST", () => {
     const event = eventById("chennai-reception")
     const ics = unfold(buildEventIcs(event, "en", now))
     const link = googleCalendarUrl(event, "en")
 
     expect(ics).toContain("DTSTART;TZID=Asia/Kolkata:20261110T180000")
-    expect(ics).not.toContain("DTEND")
-    expect(ics).toContain("X-END-UNCONFIRMED:TRUE")
+    expect(ics).toContain("DTEND;TZID=Asia/Kolkata:20261110T220000")
+    expect(ics).not.toContain("X-END-UNCONFIRMED")
+    expect(ics).toContain("6:00 PM–10:00 PM")
     expect(ics).toContain("Music: 7:00 PM")
     expect(ics).toContain("Dinner: 7:30 PM")
+    expect(ics).toContain("Soundrapandia Kalyana Mandapam")
     expect(ics).toContain(CHENNAI_ADDRESS.replace(/,/g, "\\,"))
     expect(ics).toContain(CHENNAI_MAPS_URL)
     expect(ics).not.toContain("Awaiting confirmed venue details.")
     expect(ics).not.toContain("Kachohalli")
     expect(ics).not.toContain("Asthitva")
-    expect(link).toContain("dates=20261110T180000%2F20261110T180000")
-    expect(link).not.toContain("T220000")
+    expect(link).toContain("dates=20261110T180000%2F20261110T220000")
     expect(link).toContain("location=")
+    expect(ics).toContain("UID:chennai-reception-pushpalatha-gokul@wedding-invitation")
   })
 })

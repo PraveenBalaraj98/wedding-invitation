@@ -85,19 +85,6 @@ export function Peacock({ flip = false, className = "" }: { flip?: boolean; clas
   )
 }
 
-export function Corner({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 80 80" className={className} aria-hidden="true">
-      <path d="M8 46 C8 16 18 8 48 8" fill="none" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M8 30 C18 30 28 20 28 8" fill="none" stroke="currentColor" strokeWidth="0.9" />
-      <path d="M18 42 C28 28 34 24 46 16" fill="none" stroke="#7a1f3d" strokeWidth="0.8" />
-      <circle cx="20" cy="20" r="3" fill="currentColor" />
-      <circle cx="34" cy="14" r="1.6" fill="#7a1f3d" />
-      <circle cx="14" cy="34" r="1.6" fill="#7a1f3d" />
-    </svg>
-  )
-}
-
 export function Kolam({ className = "mx-auto my-2 h-5 w-28" }: { className?: string }) {
   const dots = [
     [60, 4],
@@ -116,13 +103,26 @@ export function Kolam({ className = "mx-auto my-2 h-5 w-28" }: { className?: str
   )
 }
 
+const FRAME_CORNERS = [
+  ["invitation-frame-top-left.png", "frame-corner frame-tl"],
+  ["invitation-frame-top-right.png", "frame-corner frame-tr"],
+  ["invitation-frame-bottom-left.png", "frame-corner frame-bl"],
+  ["invitation-frame-bottom-right.png", "frame-corner frame-br"],
+] as const
+
 export function InvitationFrame({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <div className={`invitation-frame ${className}`}>
-      <Corner className="corner tl" />
-      <Corner className="corner tr" />
-      <Corner className="corner bl" />
-      <Corner className="corner br" />
+      {FRAME_CORNERS.map(([file, cornerClass]) => (
+        <img
+          key={file}
+          className={cornerClass}
+          src={`/images/${file}`}
+          alt=""
+          draggable={false}
+          aria-hidden="true"
+        />
+      ))}
       <div className="invitation-inner">{children}</div>
     </div>
   )

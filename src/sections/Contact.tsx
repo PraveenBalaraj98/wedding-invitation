@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { Link2, Printer, Share2 } from "lucide-react"
+import { Link2, Printer } from "lucide-react"
 import { rsvp, rsvpIsConfigured } from "../data/weddingConfig.ts"
 import { useLocale } from "../context/LocaleContext.tsx"
 import { Button } from "../components/Button.tsx"
 import { Reveal } from "../components/Reveal.tsx"
 import { RsvpForm } from "../components/RsvpForm.tsx"
-import { buildInvitationMessage, copyText, currentPageUrl, shareOrCopy, whatsAppUrl } from "../utils/share.ts"
+import { buildInvitationMessage, copyText, currentPageUrl, whatsAppUrl } from "../utils/share.ts"
 
 function WhatsAppIcon() {
   return (
@@ -24,17 +24,6 @@ export function Contact() {
     setStatus((await copyText(currentPageUrl())) ? t.linkCopied : t.copyFailed)
   }
 
-  async function onShare() {
-    const result = await shareOrCopy({
-      title: t.metaTitle,
-      text: buildInvitationMessage(locale, currentPageUrl()),
-      url: currentPageUrl(),
-    })
-    if (result === "shared") setStatus(t.shared)
-    else if (result === "copied") setStatus(t.linkCopied)
-    else if (result === "failed") setStatus(t.copyFailed)
-  }
-
   return (
     <section id="contact" className="section">
       <Reveal className="section-inner">
@@ -50,10 +39,6 @@ export function Contact() {
           <Button variant="ghost" onClick={() => void onCopy()}>
             <Link2 aria-hidden="true" />
             {t.copyLink}
-          </Button>
-          <Button variant="ghost" onClick={() => void onShare()}>
-            <Share2 aria-hidden="true" />
-            {t.share}
           </Button>
           <Button variant="gold" onClick={() => window.print()}>
             <Printer aria-hidden="true" />
