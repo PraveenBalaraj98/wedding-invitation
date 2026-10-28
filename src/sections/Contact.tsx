@@ -34,15 +34,15 @@ export function Contact() {
         <div className="action-grid two">
           <Button href={whatsAppUrl(message)} external>
             <WhatsAppIcon />
-            {t.whatsapp}
+            <span>{t.whatsapp}</span>
           </Button>
           <Button variant="ghost" onClick={() => void onCopy()}>
             <Link2 aria-hidden="true" />
-            {t.copyLink}
+            <span>{t.copyLink}</span>
           </Button>
           <Button variant="gold" onClick={() => window.print()}>
             <Printer aria-hidden="true" />
-            {t.print}
+            <span>{t.print}</span>
           </Button>
         </div>
         <p className="status text-center" role="status">

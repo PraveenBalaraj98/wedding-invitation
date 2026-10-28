@@ -31,7 +31,7 @@ describe("calendar exports", () => {
 
     expect(ics).toContain("DTSTART;TZID=Asia/Kolkata:20261111T060000")
     expect(ics).toContain("DTEND;TZID=Asia/Kolkata:20261111T073000")
-    expect(ics).toContain("Soundrapandia Kalyana Mandapam")
+    expect(ics).toContain("Soundrapandian Kalyana Mandapam")
     expect(ics).toContain(CHENNAI_ADDRESS.replace(/,/g, "\\,"))
     expect(ics).toContain(CHENNAI_MAPS_URL)
     expect(ics).not.toContain(MAPS_URL)
@@ -51,7 +51,7 @@ describe("calendar exports", () => {
     expect(ics).toContain("6:00 PM–10:00 PM")
     expect(ics).toContain("Music: 7:00 PM")
     expect(ics).toContain("Dinner: 7:30 PM")
-    expect(ics).toContain("Soundrapandia Kalyana Mandapam")
+    expect(ics).toContain("Soundrapandian Kalyana Mandapam")
     expect(ics).toContain(CHENNAI_ADDRESS.replace(/,/g, "\\,"))
     expect(ics).toContain(CHENNAI_MAPS_URL)
     expect(ics).not.toContain("Awaiting confirmed venue details.")

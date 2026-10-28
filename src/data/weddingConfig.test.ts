@@ -82,8 +82,8 @@ describe("venues", () => {
 
   it("shows the Bengaluru venue and address in Kannada and Tamil", () => {
     expect(venueForDisplay(CHENNAI_VENUE, "en")).toBe(CHENNAI_VENUE)
-    expect(venueForDisplay(CHENNAI_VENUE, "kn")).toBe("ಸೌಂದ್ರಪಾಂಡಿಯ ಕಲ್ಯಾಣ ಮಂಟಪ")
-    expect(venueForDisplay(CHENNAI_VENUE, "ta")).toBe("சௌந்திரபாண்டிய கல்யாண மண்டபம்")
+    expect(venueForDisplay(CHENNAI_VENUE, "kn")).toBe("ಸೌಂದ್ರಪಾಂಡಿಯನ್ ಕಲ್ಯಾಣ ಮಂಟಪ")
+    expect(venueForDisplay(CHENNAI_VENUE, "ta")).toBe("சௌந்திரபாண்டியன் கல்யாண மண்டபம்")
     expect(getCopy("ta").eventKickers["bengaluru-reception"]).toBe("கறி விருந்து")
     expect(getCopy("ta").eventTitles["bengaluru-reception"]).toContain("கறி விருந்து")
     expect(getCopy("ta").eventTitles["bengaluru-reception"]).not.toContain("பீகர")

@@ -73,7 +73,9 @@ export function Invitation() {
               </div>
             </div>
           )}
-          <div className="gold-shimmer" />
+          <div className="gold-divider">
+            <img src="/images/gold-ornamental-divider.png" alt="" />
+          </div>
           {after.map((line, index) => (
             <p key={`${line.role}-${index}`} className={`invite-${line.role}`}>
               {line.text}

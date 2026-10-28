@@ -75,8 +75,8 @@ const CHENNAI_ADDRESS_TA =
 const BENGALURU_VENUE_KN = "ಅಸ್ಥಿತ್ವ ಟೀಕ್ ಮೆಡೋಸ್"
 const BENGALURU_VENUE_TA = "அஸ்தித்வா டீக் மெடோஸ்"
 
-const CHENNAI_VENUE_KN = "ಸೌಂದ್ರಪಾಂಡಿಯ ಕಲ್ಯಾಣ ಮಂಟಪ"
-const CHENNAI_VENUE_TA = "சௌந்திரபாண்டிய கல்யாண மண்டபம்"
+const CHENNAI_VENUE_KN = "ಸೌಂದ್ರಪಾಂಡಿಯನ್ ಕಲ್ಯಾಣ ಮಂಟಪ"
+const CHENNAI_VENUE_TA = "சௌந்திரபாண்டியன் கல்யாண மண்டபம்"
 
 const BENGALURU_ADDRESS_KN =
   "63/1, ಕಾಚೋಹಳ್ಳಿ ಮುಖ್ಯ ರಸ್ತೆ, ಎಚ್.ಪಿ. ಪೆಟ್ರೋಲ್ ಬಂಕ್ ಎದುರು, ಕೆಂಪೇಗೌಡನಗರ, ಬ್ಯಾಡರಹಳ್ಳಿ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 562162"

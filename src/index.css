@@ -112,6 +112,26 @@ html[lang="ta"] .nav-link {
   text-transform: none;
   font-size: 0.98rem;
 }
+html[lang="kn"] .site-header {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+html[lang="kn"] .brand {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-right: auto;
+  font-family: "Noto Serif Kannada", "Nunito Sans", sans-serif;
+  font-size: clamp(1.2rem, 6.15vw, 1.5rem);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+html[lang="kn"] .site-header .menu-toggle {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  align-self: center;
+}
 html[lang="ta"] .site-header {
   flex-wrap: nowrap;
   align-items: center;
@@ -205,6 +225,28 @@ html[lang="ta"] .nav-desktop .nav-link,
 }
 #events .event-stage { max-width: none; width: 100%; }
 #events .event-carousel { width: 100%; max-width: none; }
+@media (min-width: 768px) {
+  #events .event-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 1rem;
+    width: 100%;
+  }
+  #events .event-grid .event-card {
+    height: auto;
+    gap: 0.65rem;
+    padding: 1.05rem 1rem 1.1rem;
+  }
+  #events .event-grid .event-card h3 { min-height: 0; }
+  #events .event-grid .event-card .action-grid { margin-top: 0.35rem; }
+}
+@media (min-width: 1024px) {
+  #events .event-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+}
 .section-inner { max-width: 760px; margin: 0 auto; }
 .section-kicker {
   margin: 0;
@@ -323,12 +365,19 @@ html[lang="ta"] .countdown span { letter-spacing: 0; text-transform: none; font-
   padding: 1.8rem 1.15rem 2rem;
   text-align: center;
 }
+.invitation-frame::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  inset: 10px;
+  border: 2px solid #a6843d;
+}
 .frame-corner {
   position: absolute;
   z-index: 2;
-  width: clamp(3rem, 12vw, 4.75rem);
-  height: auto;
-  aspect-ratio: 1;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   pointer-events: none;
   user-select: none;
@@ -461,13 +510,23 @@ html[lang="ta"] .scroll-hint-label {
   color: var(--magenta);
 }
 
-.gold-shimmer {
-  height: 1px;
-  width: min(70%, 220px);
-  margin: 0.8rem auto;
-  background: linear-gradient(90deg, transparent, #7d6128, #f3e2b3, #7d6128, transparent);
-  background-size: 200% 100%;
-  animation: shimmer 7s linear infinite;
+.gold-divider {
+  position: relative;
+  width: min(92%, 32rem);
+  max-width: 100%;
+  margin: 0.75rem auto;
+  overflow: hidden;
+  aspect-ratio: 2155 / 386;
+}
+.gold-divider img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  transform: translate(-50%, -47.8%);
 }
 
 .event-grid {
@@ -562,6 +621,27 @@ html[lang="ta"] .event-kicker { letter-spacing: 0; text-transform: none; font-si
 .btn-on-dark:hover { background: rgba(255, 250, 243, 0.1); }
 .btn-on-dark:active { background: rgba(255, 250, 243, 0.2); }
 .action-grid .btn { width: 100%; }
+.share-card .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.55rem 0.85rem;
+  line-height: 1.25;
+  text-align: center;
+}
+.share-card .btn svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+}
+html[lang="ta"] .share-card .btn,
+html[lang="kn"] .share-card .btn {
+  white-space: nowrap;
+  font-size: clamp(0.82rem, 3.3vw, 0.95rem);
+}
 
 .lang-switch { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
 .lang-switch button {
@@ -960,7 +1040,7 @@ label { display: grid; gap: 0.3rem; font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .gold-shimmer, .petal, .photo-pending, .envelope-screen.is-opening, .scroll-hint-chevron, .nav-backdrop, .mobile-nav { animation: none; }
+  .petal, .photo-pending, .envelope-screen.is-opening, .scroll-hint-chevron, .nav-backdrop, .mobile-nav { animation: none; }
   .envelope-letter, .envelope-flap, .envelope-seal, .btn, .photo-img { transition: none; }
   .petal { display: none; }
 }

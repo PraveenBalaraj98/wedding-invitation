@@ -17,10 +17,10 @@ export function SaveTheDate() {
       <div className="section-inner">
         <motion.article
           className="date-card"
-          initial={reduced ? false : { opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.45 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          initial={reduced ? false : { y: 8 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true, amount: 0 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
         >
           <p className="date-kicker">{t.saveTheDate}</p>
           <p className="date-main">{english ? dated : event.dateLabel[locale]}</p>
